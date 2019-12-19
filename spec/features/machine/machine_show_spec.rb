@@ -25,7 +25,7 @@ RSpec.describe "As a user" do
     end
 
     it "i see the average price of all snacks" do
-      expect(page).to have_content("Avg snack price: #{@machine.avg_snack_price}")
+      expect(page).to have_content("Avg snack price: $#{@machine.avg_snack_price}")
     end
   end
 end
