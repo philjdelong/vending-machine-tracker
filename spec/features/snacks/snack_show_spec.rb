@@ -5,24 +5,30 @@ RSpec.describe "As a user" do
     before :each do
       @owner = Owner.create(  name: "Phil")
 
-      @machine_1 = @owner.machines.create(  location: "Denver")
-
-      @machine_2 = @owner.machines.create(  location: "Denver")
-
-      @snack_1 = @machine_1.snacks.create(  name: "Cheetos",
-                                          price: 1
+      @machine_1 = @owner.machines.create(  location: "Denver",
+                                    id: 1
       )
 
-      @snack_2 = @machine_1.snacks.create(  name: "Fretos",
-                                          price: 2
-      )
-      @snack_1 = @machine_2.snacks.create(  name: "Cheetos",
-                                          price: 1
+      @machine_2 = @owner.machines.create(  location: "Boulder",
+                                            id: 2
       )
 
-      @snack_2 = @machine_2.snacks.create(  name: "Fretos",
-                                          price: 2
+      @machine_3 = @owner.machines.create(  location: "The Moon",
+                                            id: 3
       )
+
+      @snack_1 = Snack.create(  name: "Cheetos",
+                                price: 1,
+                                id: 1
+      )
+
+      @snack_2 = Snack.create(  name: "Fretos",
+                                            price: 2,
+                                            id:2
+      )
+
+      @machine_1.snacks << [@snack_1, @snack_2]
+      @machine_2.snacks << [@snack_1, @snack_2]
 
       visit "/snacks/#{@snack_1.id}"
     end
@@ -31,16 +37,16 @@ RSpec.describe "As a user" do
       expect(page).to have_content(@snack_1.name)
       expect(page).to have_content(@snack_1.price)
 
-      expect(page).to have_content(@machine_1.name)
       expect(page).to have_content(@machine_1.location)
       expect(page).to have_content(@machine_1.avg_snack_price)
       expect(page).to have_content(@machine_1.snack_count)
 
-      expect(page).to have_content(@machine_2.name)
       expect(page).to have_content(@machine_2.location)
       expect(page).to have_content(@machine_2.location)
       expect(page).to have_content(@machine_2.avg_snack_price)
       expect(page).to have_content(@machine_2.snack_count)
+
+      expect(page).to_not have_content(@machine_3.location)
 
     end
   end
