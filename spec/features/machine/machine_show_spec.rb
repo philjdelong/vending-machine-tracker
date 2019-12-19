@@ -11,6 +11,10 @@ RSpec.describe "As a user" do
                                           price: 1
       )
 
+      @snack_2 = @machine.snacks.create(  name: "Fretos",
+                                          price: 2
+      )
+
       visit "/machines/#{@machine.id}"
     end
     it "i see all snacks and each price" do
