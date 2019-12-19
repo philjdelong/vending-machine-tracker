@@ -23,11 +23,9 @@ RSpec.describe "As a user" do
       expect(page).to have_content("#{@snack_2.name}")
       expect(page).to have_content("#{@snack_2.price}")
     end
+
+    it "i see the average price of all snacks" do
+      expect(page).to have_content("Avg snack price: #{@machine.avg_snack_price}")
+    end
   end
 end
-
-# User Story 1 of 3
-#
-# As a visitor
-# When I visit a vending machine show page
-# I see the name of all of the snacks associated with that vending machine along with their price
